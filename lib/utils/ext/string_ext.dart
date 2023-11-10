@@ -32,6 +32,10 @@ extension StringExt on String {
     return result[0];
   }
 
+  String get asLine {
+    return '$this\n';
+  }
+
   Future<bool> toClipboard() async {
     var cmd = 'pbcopy';
     if (Platform.isWindows) {
