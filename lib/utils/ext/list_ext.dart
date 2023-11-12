@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-typedef RCallback<T> = void Function(T e);
+import 'package:cli_tools/utils/callback.dart';
 
 extension IterableExt<T> on Iterable<T> {
   List<R> mapIndex<R>(R Function(T e, int index) f) {
@@ -33,7 +33,7 @@ extension ListExt on List<String> {
     return result.stdout.toString();
   }
 
-  Future<Process> startAsCmd({RCallback<String>? out, RCallback<String>? err}) async {
+  Future<Process> startAsCmd({PCallback<String>? out, PCallback<String>? err}) async {
     final list = [
       for (var item in this)
         if (item.trim().isNotEmpty) item.trim() else ''

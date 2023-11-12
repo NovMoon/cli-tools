@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ansicolor/ansicolor.dart';
 import 'package:cli_tools/utils/ext/list_ext.dart';
 
 const String _l1 = '****';
@@ -10,9 +11,11 @@ extension StringNullableExt on String? {
   bool get isNull {
     return this == null;
   }
+
   bool get beEmptyOrNull {
     return this == null || this!.isEmpty;
   }
+
   bool get beNotEmptyOrNull {
     return !beEmptyOrNull;
   }
@@ -23,6 +26,71 @@ extension StringNullableExt on String? {
 
   bool get beNotEmpty {
     return !beEmpty;
+  }
+}
+
+extension StrColorExt on String {
+  static final AnsiPen _pen = AnsiPen();
+  String cRed({bool bg = false, bool bold = false}) {
+    _pen.reset();
+    _pen.red(bg: bg, bold: bold);
+    return _pen(this);
+  }
+
+  String cBlack({bool bg = false, bool bold = false}) {
+    _pen.reset();
+    _pen.black(bg: bg, bold: bold);
+    return _pen(this);
+  }
+
+  String cGreen({bool bg = false, bool bold = false}) {
+    _pen.reset();
+    _pen.green(bg: bg, bold: bold);
+    return _pen(this);
+  }
+
+  String cYellow({bool bg = false, bool bold = false}) {
+    _pen.reset();
+    _pen.yellow(bg: bg, bold: bold);
+    return _pen(this);
+  }
+
+  String cBlue({bool bg = false, bool bold = false}) {
+    _pen.reset();
+    _pen.blue(bg: bg, bold: bold);
+    return _pen(this);
+  }
+
+  String cMagenta({bool bg = false, bool bold = false}) {
+    _pen.reset();
+    _pen.magenta(bg: bg, bold: bold);
+    return _pen(this);
+  }
+
+  String cCyan({bool bg = false, bool bold = false}) {
+    _pen.reset();
+    _pen.cyan(bg: bg, bold: bold);
+    return _pen(this);
+  }
+
+  String cWhite({bool bg = false, bool bold = false}) {
+    _pen.reset();
+    _pen.white(bg: bg, bold: bold);
+    return _pen(this);
+  }
+
+  String cGray({bool bg = false, num level = 1.0}) {
+    _pen.reset();
+    _pen.gray(bg: bg, level: level);
+    return _pen(this);
+  }
+
+  static final RegExp _removeReg = RegExp(r'\[\d+;\d;\d+m|\[0m');
+
+  String removeColor() {
+    String str = this;
+    str = replaceAll(_removeReg, '');
+    return str;
   }
 }
 
